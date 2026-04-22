@@ -15,7 +15,8 @@ jobs:
         run: echo "${{ secrets.dckr_pat_mBhknDnZQ4bVGy1h8IKy238uJY0 }}" | docker login -u "${{ secrets.chipln }}" --password-stdin
 
       - name: Build image
-        run: docker build -t ${{ secrets.chipln }}/devops-demo:latest .
+        run: docker build -t chipln/docker101tutorial:latest .
 
       - name: Push image
+        run: docker push chipln/docker101tutorial:latest
         run: docker push ${{ secrets.chipln }}/devops-demo:latest
