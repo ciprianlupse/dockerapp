@@ -1,16 +1,21 @@
-name: Docker Build
+name: Docker CI
 
 on:
   push:
     branches: [ "main" ]
 
 jobs:
-  build:
+  docker:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Build Docker image
-        run: docker build -t my-python-app .
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.dckr_pat_mBhknDnZQ4bVGy1h8IKy238uJY0 }}" | docker login -u "${{ secrets.chipln }}" --password-stdin
+
+      - name: Build image
+        run: docker build -t ${{ secrets.chipln }}/devops-demo:latest .
+
+      - name: Push image
+        run: docker push ${{ secrets.chipln }}/devops-demo:latest
