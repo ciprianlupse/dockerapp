@@ -42,4 +42,4 @@ jobs:
 
     steps: 
       - name: Deploy locally on VM
-      - run:  ~/deploy.sh
+        run:  ~/deploy.sh
