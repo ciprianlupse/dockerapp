@@ -36,11 +36,9 @@ jobs:
           docker push chipln/docker101tutorial:latest
           docker push chipln/docker101tutorial:${{ env.IMAGE_TAG }}
 
-      - name: Deploy to VM
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.VM_HOST }}
-          username: ${{ secrets.VM_USER }}
-          key: ${{ secrets.VM_SSH_KEY }}
-          script: |
-            ~/deploy.sh
+      - deploy: 
+          runs-on: self-hosted
+          needs: docker
+          steps: 
+            - name: Deploy locally on VM
+            - run:  ~/deploy.sh
