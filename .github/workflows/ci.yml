@@ -36,9 +36,10 @@ jobs:
           docker push chipln/docker101tutorial:latest
           docker push chipln/docker101tutorial:${{ env.IMAGE_TAG }}
 
-      - deploy: 
-          runs-on: self-hosted
-          needs: docker
-          steps: 
-            - name: Deploy locally on VM
-            - run:  ~/deploy.sh
+  deploy: 
+    runs-on: self-hosted
+    needs: docker
+
+    steps: 
+      - name: Deploy locally on VM
+      - run:  ~/deploy.sh
