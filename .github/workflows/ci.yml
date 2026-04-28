@@ -43,3 +43,21 @@ jobs:
     steps: 
       - name: Deploy locally on VM
         run:  ~/deploy.sh
+
+  k8s-deploy:
+    runs-on: self-hosted
+    needs: docker
+
+    steps:
+      - name: Set kubeconfig
+        run: |
+          mkdir -p ~/.kube
+          echo "${{ secrets.KUBE_CONFIG }}" > ~/.kube/config
+
+      - name: Update deployment image
+        run: |
+          kubectl set image deployment/dockerapp \
+          dockerapp=chipln/docker101tutorial:latest
+
+      - name: Wait for rollout
+        run: kubectl rollout status deployment/dockerapp
