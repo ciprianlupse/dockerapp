@@ -6,7 +6,8 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     message = os.getenv("MESSAGE", "Default message 🚀")
-    return message
+    secret = os.getenv("SECRET_MESSAGE", "No secret")
+    return f"{message} | {secret}"
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
